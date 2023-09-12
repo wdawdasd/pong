@@ -45,11 +45,11 @@ var Game = {
 		this.canvas = document.querySelector("canvas");
 		this.context = this.canvas.getContext("2d");
 
-		this.canvas.width = 1400;
-		this.canvas.height = 1000;
+		this.canvas.width = 1800;
+		this.canvas.height = 1100;
 
-		this.canvas.style.width = this.canvas.width / 2 + "px";
-		this.canvas.style.height = this.canvas.height / 2 + "px";
+		this.canvas.style.width = "60vw";
+		this.canvas.style.height = "80vh";
 
 		this.player = Paddle.new.call(this, "left");
 		this.paddle = Paddle.new.call(this, "right");
@@ -303,36 +303,47 @@ var Game = {
 			// Draw the ball
 			this.context.fillRect(this.ball.x, this.ball.y, this.ball.width, this.ball.height);
 
-				const verticalDistanceraw = this.ball.y - this.player.y;
-				const verticalDistance = ` v distance: ${this.ball.y - this.player.y}`;
-				displayCoordinates(this.context, this.ball.x, this.ball.y + 150, verticalDistance);
-				if (verticalDistanceraw > 0) {
-					Pong.player.move = DIRECTION.DOWN;
-				} else {
-					
-				}
-				if (verticalDistanceraw < 0) {
-					Pong.player.move = DIRECTION.UP;
-				}
+			const verticalDistanceraw = this.ball.y - this.player.y;
+			const verticalDistance = ` v distance: ${this.ball.y - this.player.y}`;
+			displayCoordinates(this.context, this.ball.x, this.ball.y + 150, verticalDistance);
+			if (verticalDistanceraw !== 0) {
+				// Define the starting and ending points for the line.
+				const playerX = this.player.x;
+				const ballY = this.ball.y;
+
+				const rectWidth = this.player.width * 2; // Adjust the width of the rectangle as needed
+				const rectHeight = this.player.height * 2; // Adjust the height of the rectangle as needed
+
+				this.context.fillStyle = "rgba(133, 255, 199, 0.5)";
+				this.context.setLineDash([]);
+				this.context.lineWidth = 1;
+
+				// Draw the rectangle centered at (playerX, ballY).
+				const rectX = playerX - rectWidth / 2;
+				const rectY = ballY - rectHeight / 2;
+
+				// Draw the rectangle.
+				this.context.fillRect(rectX, rectY, rectWidth, rectHeight);
+			}
 			// Draw a line from this.ball to this.player
-			this.context.beginPath();
-			this.context.moveTo(this.ball.x, this.ball.y); // Starting point
-			this.context.lineTo(this.player.x, this.player.y); // Ending point
-			this.context.strokeStyle = "red"; // Line color
-			this.context.lineWidth = 2; // Line width
-			this.context.stroke(); // Draw the line
-			// Now, you can draw the minimum bounding circle
-			this.context.beginPath();
-			this.context.arc(
-				boundingCircle.centerX,
-				boundingCircle.centerY,
-				boundingCircle.radius,
-				0,
-				2 * Math.PI
-			);
-			this.context.strokeStyle = "#C2C1C2"; // Circle color
-			this.context.lineWidth = 2; // Line width
-			this.context.stroke(); // Draw the circle
+			//  this.context.beginPath();
+			//  this.context.moveTo(this.ball.x, this.ball.y); // Starting point
+			//  this.context.lineTo(this.player.x, this.player.y); // Ending point
+			//  this.context.strokeStyle = "red"; // Line color
+			//  this.context.lineWidth = 2; // Line width
+			//  this.context.stroke(); // Draw the line
+			//  Now, you can draw the minimum bounding circle
+			//  this.context.beginPath();
+			//  this.context.arc(
+			//	boundingCircle.centerX,
+			//	boundingCircle.centerY,
+			//	boundingCircle.radius,
+			//	0,
+			//	2 * Math.PI
+			//	);
+			//	this.context.strokeStyle = "#C2C1C2"; // Circle color
+			//	this.context.lineWidth = 2; // Line width
+			//	this.context.stroke(); // Draw the circle
 
 			displayCoordinates(this.context, this.ball.x, this.ball.y + 50, currentCoordinatesText);
 
