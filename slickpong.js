@@ -303,6 +303,17 @@ var Game = {
 			// Draw the ball
 			this.context.fillRect(this.ball.x, this.ball.y, this.ball.width, this.ball.height);
 
+				const verticalDistanceraw = this.ball.y - this.player.y;
+				const verticalDistance = ` v distance: ${this.ball.y - this.player.y}`;
+				displayCoordinates(this.context, this.ball.x, this.ball.y + 150, verticalDistance);
+				if (verticalDistanceraw > 0) {
+					Pong.player.move = DIRECTION.DOWN;
+				} else {
+					
+				}
+				if (verticalDistanceraw < 0) {
+					Pong.player.move = DIRECTION.UP;
+				}
 			// Draw a line from this.ball to this.player
 			this.context.beginPath();
 			this.context.moveTo(this.ball.x, this.ball.y); // Starting point
@@ -324,7 +335,9 @@ var Game = {
 			this.context.stroke(); // Draw the circle
 
 			displayCoordinates(this.context, this.ball.x, this.ball.y + 50, currentCoordinatesText);
+
 			displayCoordinates(this.context, 150, 200, movevector);
+
 			displayCoordinates(this.context, 150, 250, moveDirection);
 			displayCoordinates(this.context, this.ball.x, this.ball.y + 100, distance);
 			this.context.strokeStyle = "black"; // Set the border color
@@ -388,21 +401,20 @@ var Game = {
 				Pong.running = true;
 				window.requestAnimationFrame(Pong.loop);
 			}
-		
+
 			switch (event.key) {
-				case 'ArrowUp':
-				case 'w':
-				case 'W':
+				case "ArrowUp":
+				case "w":
+				case "W":
 					Pong.player.move = DIRECTION.UP;
 					break;
-				case 'ArrowDown':
-				case 's':
-				case 'S':
+				case "ArrowDown":
+				case "s":
+				case "S":
 					Pong.player.move = DIRECTION.DOWN;
 					break;
 			}
 		});
-		
 
 		// Stop the player from moving when there are no keys being pressed.
 		document.addEventListener("keyup", function (key) {
